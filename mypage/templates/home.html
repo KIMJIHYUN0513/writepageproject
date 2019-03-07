@@ -1,0 +1,56 @@
+<!--넣을 기능들 : 메인(글 요약?),디테일(자세한 글들 + 댓글?),글쓰기 페이지-->
+<head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <br>
+  <h1 style="text-align:center">자유롭게 글을 쓸 수 있는 페이지입니다!</h1>
+  
+  <ul class="nav justify-content-center">
+    <li class="nav-item">
+    <a class="nav-link active" href="{% url 'home' %}">글보기</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="{% url 'new' %}">글쓰기</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">악플모음집(박제)</a>
+    </li>
+  </ul>
+  <br><br>
+  
+  <div class="container">
+  {% for text in posts %}     <!--페이지네이션 해주고 text.all 에서 posts로 변경-->
+  <div class="card" style="width: 70rem;">
+    <div class="card-body">
+      <h4 class="card-title">{{text.title}}</h4>
+      <h6 class="card-subtitle mb-2 text-muted">{{text.pub_date}}</h6>
+      <p class="card-text">{{text.summary}} <a href="{% url 'detail' text.id%}">...more</a></p>
+    </div>
+  </div>
+  <br>
+  {%endfor%}
+  </div>
+
+  
+    <br>
+    
+
+    <div class="container" style="text-align:center">
+
+    {%if posts.has_previous%}
+    <a href="?page=1">First</a>
+    <a href="?page={{posts.previous_page_number}}">Previous</a>
+    {%endif%}
+
+    <span>{{posts.number}}</span>
+    <span>of</span>
+    <span>{{posts.paginator.num_pages}}</span>
+
+    {%if posts.has_next%}
+    <a href="?page={{posts.next_page_number}}">Next</a>
+    <a href="?page={{posts.paginator.num_pages}}">Last</a>
+    {%endif%}
+    </div>
+      
+</body>

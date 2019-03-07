@@ -1,0 +1,7 @@
+<form method="post" action="{% url 'addcomment' %}">
+	<input type="hidden" name="text_id" value="">
+
+	<p><label for="name">글쓴이</label><input type="text" id="name" name="name" value=""></p>
+	<p><textarea id="content" name="content"></textarea></p>
+	<p><input type="submit" value="댓글 달기"></p>
+</form>
